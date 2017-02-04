@@ -9,18 +9,18 @@ Imports System.Threading.Tasks
 Public Class FrmMain
 
 #Region "Variables"
-    Private mCSV As New CSVData
-    Private vtColumn As Integer = 0, pathColumn As Integer = 0
-    Private procArgs As String = String.Empty
-    Private urlToDonwload As String = "https://download.sysinternals.com/files/Autoruns.zip"
-    Private autorunsExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc.exe"
-    Private autoruns64ExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc64.exe"
-    Private autorunsGuiExecuteablePath As String = Application.StartupPath & "\autoruns\autoruns.exe"
-    Private autorunsGui64ExecuteablePath As String = Application.StartupPath & "\autoruns\autoruns64.exe"
-    Private pathToExtract As String = Application.StartupPath & "\autoruns"
-    Private zipFilePath As String = Application.StartupPath & "\autoruns.zip"
-    Private autorunsFolderPath As String = Application.StartupPath & "\autoruns"
-    Private historyFolderPath As String = Application.StartupPath & "\History"
+    Private _mCSV As New CSVData
+    Private _vtColumn As Integer = 0, _pathColumn As Integer = 0
+    Private _procArgs As String = String.Empty
+    Private _urlToDonwload As String = "https://download.sysinternals.com/files/Autoruns.zip"
+    Private _autorunsExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc.exe"
+    Private _autoruns64ExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc64.exe"
+    Private _autorunsGuiExecuteablePath As String = Application.StartupPath & "\autoruns\autoruns.exe"
+    Private _autorunsGui64ExecuteablePath As String = Application.StartupPath & "\autoruns\autoruns64.exe"
+    Private _pathToExtract As String = Application.StartupPath & "\autoruns"
+    Private _zipFilePath As String = Application.StartupPath & "\autoruns.zip"
+    Private _autorunsFolderPath As String = Application.StartupPath & "\autoruns"
+    Private _historyFolderPath As String = Application.StartupPath & "\History"
 
 
 #End Region
@@ -42,20 +42,20 @@ Public Class FrmMain
         LvCSV.HeaderStyle = ColumnHeaderStyle.Nonclickable
     End Sub
     Private Sub Download()
-        If Not File.Exists(zipFilePath) Then
-            My.Computer.Network.DownloadFile(urlToDonwload, zipFilePath)
+        If Not File.Exists(_zipFilePath) Then
+            My.Computer.Network.DownloadFile(_urlToDonwload, _zipFilePath)
         End If
     End Sub
     Private Sub UnZip()
-        Dim extractPath As String = pathToExtract
-        If Not Directory.Exists(autorunsFolderPath) Then
-            ZipFile.ExtractToDirectory(zipFilePath, extractPath)
+        Dim extractPath As String = _pathToExtract
+        If Not Directory.Exists(_autorunsFolderPath) Then
+            ZipFile.ExtractToDirectory(_zipFilePath, extractPath)
         End If
     End Sub
 
     Private Sub CreateHistoryFolder()
-        If Not Directory.Exists(historyFolderPath) Then
-            Directory.CreateDirectory(historyFolderPath)
+        If Not Directory.Exists(_historyFolderPath) Then
+            Directory.CreateDirectory(_historyFolderPath)
         End If
     End Sub
 
@@ -72,23 +72,22 @@ Public Class FrmMain
 
     Private Sub LoadCSV(fileName As String, Optional viewOption As String = Nothing)
         On Error Resume Next
-        mCSV.Separator = ","
-        mCSV.TextQualifier = """"
-        mCSV.LoadCSV(fileName)
+        _mCSV.Separator = ","
+        _mCSV.TextQualifier = """"
+        _mCSV.LoadCSV(fileName)
         Clear()
         Dim dc As DataColumn
         Dim dr As DataRow
         Dim lvi As ListViewItem
         Dim idx As Integer
-        For Each dc In mCSV.CSVDataSet.Tables(0).Columns
+        For Each dc In _mCSV.CSVDataSet.Tables(0).Columns
             LvCSV.Columns.Add(dc.ColumnName, 100, HorizontalAlignment.Left)
         Next
-        For Each dr In mCSV.CSVDataSet.Tables(0).Rows
+        For Each dr In _mCSV.CSVDataSet.Tables(0).Rows
             lvi = LvCSV.Items.Add(dr(0))
-            For idx = 1 To mCSV.CSVDataSet.Tables(0).Columns.Count - 1
+            For idx = 1 To _mCSV.CSVDataSet.Tables(0).Columns.Count - 1
                 If (dr(idx) = String.Empty) Then
                     lvi.SubItems.Add("Unknown")
-                    lvi.BackColor = Color.Pink
                 Else
                     lvi.SubItems.Add(dr(idx))
                 End If
@@ -98,18 +97,21 @@ Public Class FrmMain
         For i = 0 To c - 1
             LvCSV.Columns(i).Text = LvCSV.Items(0).SubItems(i).Text
             If LvCSV.Items(0).SubItems(i).Text = "VT detection" Then
-                vtColumn = i
+                _vtColumn = i
             End If
             If LvCSV.Items(0).SubItems(i).Text = "Image Path" Then
-                pathColumn = i
+                _pathColumn = i
             End If
         Next
         LvCSV.Items(0).Remove()
-        'For i = 0 To lvc - 1
-        '    If lvCSV.Items(i).SubItems(ent).Text = "Unknown" Then
-        '        lvCSV.Items(i).BackColor = Color.Pink
-        '    End If
-        'Next
+        For i = lvc To 0 Step -1
+            If Not LvCSV.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
+                LvCSV.Items(i).BackColor = Color.Pink
+            End If
+            If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(0).Text = String.Empty Then
+                LvCSV.Items(i).Remove()
+            End If
+        Next
 
     End Sub
 
@@ -125,7 +127,7 @@ Public Class FrmMain
     Private Sub Autoruns32ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Autoruns32ToolStripMenuItem.Click
         Dim procAutoruns As New Process()
         With procAutoruns.StartInfo
-            .FileName = autorunsGuiExecuteablePath
+            .FileName = _autorunsGuiExecuteablePath
             .UseShellExecute = False
             .CreateNoWindow = False
             .RedirectStandardOutput = True
@@ -137,7 +139,7 @@ Public Class FrmMain
     Private Sub Autoruns64ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Autoruns64ToolStripMenuItem.Click
         Dim procAutoruns As New Process()
         With procAutoruns.StartInfo
-            .FileName = autorunsGuiExecuteablePath
+            .FileName = _autorunsGuiExecuteablePath
             .UseShellExecute = False
             .CreateNoWindow = False
             .RedirectStandardOutput = True
@@ -149,7 +151,7 @@ Public Class FrmMain
     Private Sub HistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HistoryToolStripMenuItem.Click
         OFD.FileName = "Select CSV"
         OFD.Filter = "CSV Files|*.csv"
-        OFD.InitialDirectory = historyFolderPath
+        OFD.InitialDirectory = _historyFolderPath
         If OFD.ShowDialog() = DialogResult.OK Then
             Clear()
             LoadCSV(OFD.FileName)
@@ -159,11 +161,11 @@ Public Class FrmMain
     End Sub
 
     Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AllToolStripMenuItem.Click
-        procArgs = "-a * -m -s -vt -c -nobanner"
+        _procArgs = "-a * -m -s -vt -c -nobanner"
         ATWorker.RunWorkerAsync()
     End Sub
     Private Sub UnsignedAppToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UnsignedAppToolStripMenuItem.Click
-        procArgs = "-a * -u -c -nobanner"
+        _procArgs = "-a * -u -c -nobanner"
         ATWorker.RunWorkerAsync()
     End Sub
 
@@ -171,7 +173,7 @@ Public Class FrmMain
         On Error Resume Next
         Dim lvc As Integer = LvCSV.Items.Count
         For i = lvc - 1 To 0 Step -1
-            If LvCSV.Items(i).SubItems(vtColumn).Text <> "Unknown" Then
+            If Not LvCSV.Items(i).BackColor = Color.Pink Then
                 LvCSV.Items(i).Remove()
             End If
         Next
@@ -180,7 +182,7 @@ Public Class FrmMain
         On Error Resume Next
         Dim lvc As Integer = LvCSV.Items.Count
         For i = lvc - 1 To 0 Step -1
-            If Not LvCSV.Items(i).SubItems(pathColumn).Text.Contains("\") Then
+            If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(0).Text = String.Empty Then
                 LvCSV.Items(i).Remove()
             End If
         Next
@@ -215,11 +217,11 @@ Public Class FrmMain
         Dim procAutoruns As New Process()
         With procAutoruns.StartInfo
             If (Environment.Is64BitOperatingSystem()) Then
-                .FileName = autoruns64ExecuteablePath
+                .FileName = _autoruns64ExecuteablePath
             Else
-                .FileName = autorunsExecuteablePath
+                .FileName = _autorunsExecuteablePath
             End If
-            .Arguments = procArgs
+            .Arguments = _procArgs
             .UseShellExecute = False
             .CreateNoWindow = True
             .RedirectStandardOutput = True
@@ -238,8 +240,8 @@ Public Class FrmMain
         ProgressStatus(100, True)
         Loading(False)
         Dim fileName As String = ChangeFileName(System.DateTime.Now())
-        SaveCSV(txtOutput.Text, historyFolderPath & "\" & fileName & ".csv")
-        LoadCSV(historyFolderPath & "\" & fileName & ".csv")
+        SaveCSV(txtOutput.Text, _historyFolderPath & "\" & fileName & ".csv")
+        LoadCSV(_historyFolderPath & "\" & fileName & ".csv")
         MenuStatus(True)
 
     End Sub
