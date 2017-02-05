@@ -40,10 +40,8 @@ Partial Class FrmMain
         Me.HistoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NonZeroDetectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteEmptyLocationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ViewOnlyUnknownItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ATWorker = New System.ComponentModel.BackgroundWorker()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ATWorker = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -137,13 +135,13 @@ Partial Class FrmMain
         'Autoruns32ToolStripMenuItem
         '
         Me.Autoruns32ToolStripMenuItem.Name = "Autoruns32ToolStripMenuItem"
-        Me.Autoruns32ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.Autoruns32ToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.Autoruns32ToolStripMenuItem.Text = "Autoruns32"
         '
         'Autoruns64ToolStripMenuItem
         '
         Me.Autoruns64ToolStripMenuItem.Name = "Autoruns64ToolStripMenuItem"
-        Me.Autoruns64ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.Autoruns64ToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.Autoruns64ToolStripMenuItem.Text = "Autoruns64"
         '
         'ScanToolStripMenuItem
@@ -156,13 +154,13 @@ Partial Class FrmMain
         'AllToolStripMenuItem
         '
         Me.AllToolStripMenuItem.Name = "AllToolStripMenuItem"
-        Me.AllToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.AllToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AllToolStripMenuItem.Text = "All"
         '
         'UnsignedAppToolStripMenuItem
         '
         Me.UnsignedAppToolStripMenuItem.Name = "UnsignedAppToolStripMenuItem"
-        Me.UnsignedAppToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.UnsignedAppToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.UnsignedAppToolStripMenuItem.Text = "Unsigned App"
         '
         'HistoryToolStripMenuItem
@@ -173,7 +171,7 @@ Partial Class FrmMain
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NonZeroDetectionToolStripMenuItem, Me.DeleteEmptyLocationToolStripMenuItem, Me.ViewOnlyUnknownItemToolStripMenuItem})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NonZeroDetectionToolStripMenuItem})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(80, 20)
         Me.ViewToolStripMenuItem.Text = "View Mode"
@@ -181,29 +179,17 @@ Partial Class FrmMain
         'NonZeroDetectionToolStripMenuItem
         '
         Me.NonZeroDetectionToolStripMenuItem.Name = "NonZeroDetectionToolStripMenuItem"
-        Me.NonZeroDetectionToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.NonZeroDetectionToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
         Me.NonZeroDetectionToolStripMenuItem.Text = "Non-Zero-Detection"
-        '
-        'DeleteEmptyLocationToolStripMenuItem
-        '
-        Me.DeleteEmptyLocationToolStripMenuItem.Name = "DeleteEmptyLocationToolStripMenuItem"
-        Me.DeleteEmptyLocationToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
-        Me.DeleteEmptyLocationToolStripMenuItem.Text = "Delete Empty Location"
-        '
-        'ViewOnlyUnknownItemToolStripMenuItem
-        '
-        Me.ViewOnlyUnknownItemToolStripMenuItem.Name = "ViewOnlyUnknownItemToolStripMenuItem"
-        Me.ViewOnlyUnknownItemToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
-        Me.ViewOnlyUnknownItemToolStripMenuItem.Text = "View Unknown Item"
-        '
-        'ATWorker
-        '
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(38, 20)
         Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'ATWorker
+        '
         '
         'FrmMain
         '
@@ -246,7 +232,5 @@ Partial Class FrmMain
     Friend WithEvents PictureBox As PictureBox
     Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NonZeroDetectionToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DeleteEmptyLocationToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ViewOnlyUnknownItemToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
 End Class

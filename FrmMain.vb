@@ -10,7 +10,7 @@ Public Class FrmMain
 
 #Region "Variables"
     Private _mCSV As New CSVData
-    Private _vtColumn As Integer = 0, _pathColumn As Integer = 0
+    Private _vtColumn As Integer = 0, _pathColumn As Integer = 0, _timeColumn As Integer = 0
     Private _procArgs As String = String.Empty
     Private _urlToDonwload As String = "https://download.sysinternals.com/files/Autoruns.zip"
     Private _autorunsExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc.exe"
@@ -93,6 +93,8 @@ Public Class FrmMain
                 End If
             Next
         Next
+
+        'Add Column
         Dim c As Integer = LvCSV.Columns.Count, lvc As Integer = LvCSV.Items.Count
         For i = 0 To c - 1
             LvCSV.Columns(i).Text = LvCSV.Items(0).SubItems(i).Text
@@ -104,14 +106,16 @@ Public Class FrmMain
             End If
         Next
         LvCSV.Items(0).Remove()
+
+        'Remove Empty Location
         For i = lvc To 0 Step -1
-            If Not LvCSV.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
-                LvCSV.Items(i).BackColor = Color.Pink
-            End If
-            If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(0).Text = String.Empty Then
-                LvCSV.Items(i).Remove()
-            End If
-        Next
+                If Not LvCSV.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
+                    LvCSV.Items(i).BackColor = Color.Pink
+                End If
+                If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(_timeColumn).Text = String.Empty Then
+                    LvCSV.Items(i).Remove()
+                End If
+            Next
 
     End Sub
 
@@ -178,27 +182,6 @@ Public Class FrmMain
             End If
         Next
     End Sub
-    Private Sub DeleteEmptyLocationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteEmptyLocationToolStripMenuItem.Click
-        On Error Resume Next
-        Dim lvc As Integer = LvCSV.Items.Count
-        For i = lvc - 1 To 0 Step -1
-            If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(0).Text = String.Empty Then
-                LvCSV.Items(i).Remove()
-            End If
-        Next
-    End Sub
-
-
-    Private Sub ViewOnlyUnknownItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewOnlyUnknownItemToolStripMenuItem.Click
-        On Error Resume Next
-        Dim lvc As Integer = LvCSV.Items.Count
-        For i = lvc - 1 To 0 Step -1
-            If Not LvCSV.Items(i).BackColor = Color.Pink Then
-                LvCSV.Items(i).Remove()
-            End If
-        Next
-    End Sub
-
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Environment.Exit(0)
@@ -208,6 +191,7 @@ Public Class FrmMain
 #End Region
 
 #Region "Run"
+
     Private Sub ATWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles ATWorker.DoWork
         'CheckForIllegalCrossThreadCalls = False 'This is A temporary measure
         Clear()
