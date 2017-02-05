@@ -39,6 +39,7 @@ Partial Class FrmMain
         Me.UnsignedAppToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HistoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AllToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.NonZeroDetectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ATWorker = New System.ComponentModel.BackgroundWorker()
@@ -154,13 +155,13 @@ Partial Class FrmMain
         'AllToolStripMenuItem
         '
         Me.AllToolStripMenuItem.Name = "AllToolStripMenuItem"
-        Me.AllToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AllToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
         Me.AllToolStripMenuItem.Text = "All"
         '
         'UnsignedAppToolStripMenuItem
         '
         Me.UnsignedAppToolStripMenuItem.Name = "UnsignedAppToolStripMenuItem"
-        Me.UnsignedAppToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.UnsignedAppToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
         Me.UnsignedAppToolStripMenuItem.Text = "Unsigned App"
         '
         'HistoryToolStripMenuItem
@@ -171,10 +172,16 @@ Partial Class FrmMain
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NonZeroDetectionToolStripMenuItem})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AllToolStripMenuItem1, Me.NonZeroDetectionToolStripMenuItem})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(80, 20)
         Me.ViewToolStripMenuItem.Text = "View Mode"
+        '
+        'AllToolStripMenuItem1
+        '
+        Me.AllToolStripMenuItem1.Name = "AllToolStripMenuItem1"
+        Me.AllToolStripMenuItem1.Size = New System.Drawing.Size(183, 22)
+        Me.AllToolStripMenuItem1.Text = "All"
         '
         'NonZeroDetectionToolStripMenuItem
         '
@@ -233,4 +240,5 @@ Partial Class FrmMain
     Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NonZeroDetectionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AllToolStripMenuItem1 As ToolStripMenuItem
 End Class

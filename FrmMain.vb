@@ -11,7 +11,7 @@ Public Class FrmMain
 #Region "Variables"
     Private _mCSV As New CSVData
     Private _vtColumn As Integer = 0, _pathColumn As Integer = 0, _timeColumn As Integer = 0
-    Private _procArgs As String = String.Empty
+    Private _procArgs As String = String.Empty, _fileName As String = String.Empty
     Private _urlToDonwload As String = "https://download.sysinternals.com/files/Autoruns.zip"
     Private _autorunsExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc.exe"
     Private _autoruns64ExecuteablePath As String = Application.StartupPath & "\autoruns\autorunsc64.exe"
@@ -21,6 +21,7 @@ Public Class FrmMain
     Private _zipFilePath As String = Application.StartupPath & "\autoruns.zip"
     Private _autorunsFolderPath As String = Application.StartupPath & "\autoruns"
     Private _historyFolderPath As String = Application.StartupPath & "\History"
+
 
 
 #End Region
@@ -63,6 +64,7 @@ Public Class FrmMain
         fileName = fileName.Replace("/", "-")
         fileName = fileName.Replace(" ", "_")
         fileName = fileName.Replace(":", "_")
+        _fileName = fileName
         Return fileName
     End Function
 
@@ -70,8 +72,9 @@ Public Class FrmMain
 
 #Region "CSV"
 
-    Private Sub LoadCSV(fileName As String, Optional viewOption As String = Nothing)
+    Private Sub LoadCSV(fileName As String, Optional viewOption As Integer = 1)
         On Error Resume Next
+        Loading(True)
         _mCSV.Separator = ","
         _mCSV.TextQualifier = """"
         _mCSV.LoadCSV(fileName)
@@ -108,23 +111,30 @@ Public Class FrmMain
         LvCSV.Items(0).Remove()
 
         'Remove Empty Location
+
         For i = lvc To 0 Step -1
-                If Not LvCSV.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
-                    LvCSV.Items(i).BackColor = Color.Pink
-                End If
-                If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(_timeColumn).Text = String.Empty Then
+            If Not LvCSV.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
+                LvCSV.Items(i).BackColor = Color.Pink
+            End If
+            If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(_timeColumn).Text = String.Empty Then
+                LvCSV.Items(i).Remove()
+            End If
+        Next
+
+        If (viewOption = 0) Then
+            For i = lvc - 1 To 0 Step -1
+                If Not LvCSV.Items(i).BackColor = Color.Pink Then
                     LvCSV.Items(i).Remove()
                 End If
             Next
-
+        End If
+        Loading(False)
     End Sub
 
     Private Sub SaveCSV(fileName As String, pathToSave As String)
         On Error Resume Next
         File.WriteAllText(pathToSave, fileName)
     End Sub
-
-
 #End Region
 
 #Region "UI Events"
@@ -158,6 +168,7 @@ Public Class FrmMain
         OFD.InitialDirectory = _historyFolderPath
         If OFD.ShowDialog() = DialogResult.OK Then
             Clear()
+            _fileName = OFD.FileName
             LoadCSV(OFD.FileName)
         Else
             Return
@@ -174,15 +185,15 @@ Public Class FrmMain
     End Sub
 
     Private Sub NonZeroDetectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NonZeroDetectionToolStripMenuItem.Click
-        On Error Resume Next
-        Dim lvc As Integer = LvCSV.Items.Count
-        For i = lvc - 1 To 0 Step -1
-            If Not LvCSV.Items(i).BackColor = Color.Pink Then
-                LvCSV.Items(i).Remove()
-            End If
-        Next
+        Clear()
+        LoadCSV(_fileName, 0)
+
     End Sub
 
+    Private Sub AllToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles AllToolStripMenuItem1.Click
+        Clear()
+        LoadCSV(_fileName, 1)
+    End Sub
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Environment.Exit(0)
     End Sub
@@ -243,6 +254,7 @@ Public Class FrmMain
                                      HistoryToolStripMenuItem.Enabled = Status
                                  End Sub))
     End Sub
+
 
     Private Sub ProgressStatus(Status As Integer, Optional Complete As Boolean = False)
         Invoke(New MethodInvoker(Sub()
