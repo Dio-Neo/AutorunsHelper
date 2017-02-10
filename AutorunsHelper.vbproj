@@ -76,6 +76,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomListView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FrmMain.designer.vb">
       <DependentUpon>FrmMain.vb</DependentUpon>
     </Compile>

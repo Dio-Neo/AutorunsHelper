@@ -26,8 +26,6 @@ Partial Class FrmMain
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PictureBox = New System.Windows.Forms.PictureBox()
-        Me.LvCSV = New System.Windows.Forms.ListView()
         Me.txtOutput = New System.Windows.Forms.TextBox()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
@@ -43,10 +41,12 @@ Partial Class FrmMain
         Me.NonZeroDetectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ATWorker = New System.ComponentModel.BackgroundWorker()
+        Me.LvCSV = New AutorunsHelper.CustomListView()
+        Me.PictureBox = New System.Windows.Forms.PictureBox()
         Me.TableLayoutPanel.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip.SuspendLayout()
+        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel
@@ -75,28 +75,6 @@ Partial Class FrmMain
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(635, 436)
         Me.Panel1.TabIndex = 4
-        '
-        'PictureBox
-        '
-        Me.PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
-        Me.PictureBox.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox.Name = "PictureBox"
-        Me.PictureBox.Size = New System.Drawing.Size(635, 436)
-        Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox.TabIndex = 1
-        Me.PictureBox.TabStop = False
-        Me.PictureBox.Visible = False
-        '
-        'LvCSV
-        '
-        Me.LvCSV.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LvCSV.Location = New System.Drawing.Point(0, 0)
-        Me.LvCSV.Name = "LvCSV"
-        Me.LvCSV.Size = New System.Drawing.Size(635, 436)
-        Me.LvCSV.TabIndex = 0
-        Me.LvCSV.UseCompatibleStateImageBehavior = False
         '
         'txtOutput
         '
@@ -198,6 +176,28 @@ Partial Class FrmMain
         'ATWorker
         '
         '
+        'LvCSV
+        '
+        Me.LvCSV.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LvCSV.Location = New System.Drawing.Point(0, 0)
+        Me.LvCSV.Name = "LvCSV"
+        Me.LvCSV.Size = New System.Drawing.Size(635, 436)
+        Me.LvCSV.TabIndex = 2
+        Me.LvCSV.UseCompatibleStateImageBehavior = False
+        '
+        'PictureBox
+        '
+        Me.PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
+        Me.PictureBox.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox.Name = "PictureBox"
+        Me.PictureBox.Size = New System.Drawing.Size(635, 436)
+        Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox.TabIndex = 3
+        Me.PictureBox.TabStop = False
+        Me.PictureBox.Visible = False
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -214,16 +214,15 @@ Partial Class FrmMain
         Me.TableLayoutPanel.ResumeLayout(False)
         Me.TableLayoutPanel.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip.ResumeLayout(False)
         Me.MenuStrip.PerformLayout()
+        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents OFD As OpenFileDialog
     Friend WithEvents TableLayoutPanel As TableLayoutPanel
-    Friend WithEvents LvCSV As ListView
     Friend WithEvents txtOutput As TextBox
     Friend WithEvents MenuStrip As MenuStrip
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
@@ -236,9 +235,10 @@ Partial Class FrmMain
     Friend WithEvents ATWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents ProgressBar As ProgressBar
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents PictureBox As PictureBox
     Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NonZeroDetectionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AllToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents LvCSV As CustomListView
+    Friend WithEvents PictureBox As PictureBox
 End Class
