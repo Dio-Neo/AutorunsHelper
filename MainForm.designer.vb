@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmMain
+Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,10 +22,12 @@ Partial Class FrmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox = New System.Windows.Forms.PictureBox()
+        Me.LvCSV = New AutorunsHelper.CustomListView()
         Me.txtOutput = New System.Windows.Forms.TextBox()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
@@ -39,14 +41,14 @@ Partial Class FrmMain
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AllToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.NonZeroDetectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ATWorker = New System.ComponentModel.BackgroundWorker()
-        Me.LvCSV = New AutorunsHelper.CustomListView()
-        Me.PictureBox = New System.Windows.Forms.PictureBox()
         Me.TableLayoutPanel.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.MenuStrip.SuspendLayout()
         CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel
@@ -76,6 +78,28 @@ Partial Class FrmMain
         Me.Panel1.Size = New System.Drawing.Size(635, 436)
         Me.Panel1.TabIndex = 4
         '
+        'PictureBox
+        '
+        Me.PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
+        Me.PictureBox.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox.Name = "PictureBox"
+        Me.PictureBox.Size = New System.Drawing.Size(635, 436)
+        Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox.TabIndex = 3
+        Me.PictureBox.TabStop = False
+        Me.PictureBox.Visible = False
+        '
+        'LvCSV
+        '
+        Me.LvCSV.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LvCSV.Location = New System.Drawing.Point(0, 0)
+        Me.LvCSV.Name = "LvCSV"
+        Me.LvCSV.Size = New System.Drawing.Size(635, 436)
+        Me.LvCSV.TabIndex = 2
+        Me.LvCSV.UseCompatibleStateImageBehavior = False
+        '
         'txtOutput
         '
         Me.txtOutput.Dock = System.Windows.Forms.DockStyle.Fill
@@ -96,7 +120,7 @@ Partial Class FrmMain
         '
         'MenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.ScanToolStripMenuItem, Me.HistoryToolStripMenuItem, Me.ViewToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.ScanToolStripMenuItem, Me.HistoryToolStripMenuItem, Me.ViewToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
@@ -167,6 +191,19 @@ Partial Class FrmMain
         Me.NonZeroDetectionToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
         Me.NonZeroDetectionToolStripMenuItem.Text = "Non-Zero-Detection"
         '
+        'OptionToolStripMenuItem
+        '
+        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartupToolStripMenuItem})
+        Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
+        Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(56, 20)
+        Me.OptionToolStripMenuItem.Text = "Option"
+        '
+        'StartupToolStripMenuItem
+        '
+        Me.StartupToolStripMenuItem.Name = "StartupToolStripMenuItem"
+        Me.StartupToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.StartupToolStripMenuItem.Text = "Startup"
+        '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
@@ -176,29 +213,7 @@ Partial Class FrmMain
         'ATWorker
         '
         '
-        'LvCSV
-        '
-        Me.LvCSV.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LvCSV.Location = New System.Drawing.Point(0, 0)
-        Me.LvCSV.Name = "LvCSV"
-        Me.LvCSV.Size = New System.Drawing.Size(635, 436)
-        Me.LvCSV.TabIndex = 2
-        Me.LvCSV.UseCompatibleStateImageBehavior = False
-        '
-        'PictureBox
-        '
-        Me.PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
-        Me.PictureBox.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox.Name = "PictureBox"
-        Me.PictureBox.Size = New System.Drawing.Size(635, 436)
-        Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox.TabIndex = 3
-        Me.PictureBox.TabStop = False
-        Me.PictureBox.Visible = False
-        '
-        'FrmMain
+        'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -209,14 +224,14 @@ Partial Class FrmMain
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip
-        Me.Name = "FrmMain"
+        Me.Name = "MainForm"
         Me.Text = "Autoruns Helper"
         Me.TableLayoutPanel.ResumeLayout(False)
         Me.TableLayoutPanel.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip.ResumeLayout(False)
         Me.MenuStrip.PerformLayout()
-        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -241,4 +256,6 @@ Partial Class FrmMain
     Friend WithEvents AllToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents LvCSV As CustomListView
     Friend WithEvents PictureBox As PictureBox
+    Friend WithEvents OptionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StartupToolStripMenuItem As ToolStripMenuItem
 End Class
