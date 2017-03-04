@@ -37,9 +37,12 @@ Public Class MainForm
 
 #Region "Init"
     Private Sub LvSet()
-        LvCSV.FullRowSelect = True
-        LvCSV.View = View.Details
-        LvCSV.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        LvLeft.FullRowSelect = True
+        LvLeft.View = View.Details
+        LvLeft.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        LvRight.FullRowSelect = True
+        LvRight.View = View.Details
+        LvRight.HeaderStyle = ColumnHeaderStyle.Nonclickable
     End Sub
     Private Sub Download()
         If Not IO.File.Exists(_zipFilePath) Then
@@ -93,7 +96,7 @@ Public Class MainForm
 
 #Region "CSV"
 
-    Private Sub LoadCSV(fileName As String, Optional viewOption As Integer = 1)
+    Private Sub LoadCSV(fileName As String)
         On Error Resume Next
         Loading(True)
         _mCSV.Separator = ","
@@ -103,52 +106,59 @@ Public Class MainForm
         Dim dc As DataColumn
         Dim dr As DataRow
         Dim lvi As ListViewItem
+        Dim lvr As ListViewItem
         Dim idx As Integer
         For Each dc In _mCSV.CSVDataSet.Tables(0).Columns
-            LvCSV.Columns.Add(dc.ColumnName, 100, HorizontalAlignment.Left)
+            LvLeft.Columns.Add(dc.ColumnName, 100, HorizontalAlignment.Left)
+            LvRight.Columns.Add(dc.ColumnName, 100, HorizontalAlignment.Left)
         Next
         For Each dr In _mCSV.CSVDataSet.Tables(0).Rows
-            lvi = LvCSV.Items.Add(dr(0))
+            lvi = LvLeft.Items.Add(dr(0))
+            lvr = LvRight.Items.Add(dr(0))
             For idx = 1 To _mCSV.CSVDataSet.Tables(0).Columns.Count - 1
                 If (dr(idx) = String.Empty) Then
                     lvi.SubItems.Add("Unknown")
+                    lvr.SubItems.Add("Unknown")
                 Else
                     lvi.SubItems.Add(dr(idx))
+                    lvr.SubItems.Add(dr(idx))
                 End If
             Next
         Next
 
         'Add Column
-        Dim c As Integer = LvCSV.Columns.Count, lvc As Integer = LvCSV.Items.Count
+        Dim c As Integer = LvLeft.Columns.Count, lvc As Integer = LvLeft.Items.Count
         For i = 0 To c - 1
-            LvCSV.Columns(i).Text = LvCSV.Items(0).SubItems(i).Text
-            If LvCSV.Items(0).SubItems(i).Text = "VT detection" Then
+            LvLeft.Columns(i).Text = LvLeft.Items(0).SubItems(i).Text
+            LvRight.Columns(i).Text = LvLeft.Items(0).SubItems(i).Text
+            If LvLeft.Items(0).SubItems(i).Text = "VT detection" Then
                 _vtColumn = i
             End If
-            If LvCSV.Items(0).SubItems(i).Text = "Image Path" Then
+            If LvLeft.Items(0).SubItems(i).Text = "Image Path" Then
                 _pathColumn = i
             End If
         Next
-        LvCSV.Items(0).Remove()
+        LvLeft.Items(0).Remove()
 
         'Remove Empty Location
 
         For i = lvc To 0 Step -1
-            If Not LvCSV.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
-                LvCSV.Items(i).BackColor = Color.Pink
+            If Not LvLeft.Items(i).SubItems(_vtColumn).Text.Contains("0|") Then
+                LvLeft.Items(i).BackColor = Color.Pink
+                LvRight.Items(i).BackColor = Color.Pink
             End If
-            If Not LvCSV.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvCSV.Items(i).SubItems(_timeColumn).Text = String.Empty Then
-                LvCSV.Items(i).Remove()
+            If Not LvLeft.Items(i).SubItems(_pathColumn).Text.Contains("\") Or LvLeft.Items(i).SubItems(_timeColumn).Text = String.Empty Then
+                LvLeft.Items(i).Remove()
+                LvRight.Items(i).BackColor = Color.Pink
             End If
         Next
 
-        If (viewOption = 0) Then
-            For i = lvc - 1 To 0 Step -1
-                If Not LvCSV.Items(i).BackColor = Color.Pink Then
-                    LvCSV.Items(i).Remove()
-                End If
-            Next
-        End If
+        For i = lvc - 1 To 0 Step -1
+            If Not LvRight.Items(i).BackColor = Color.Pink Then
+                LvRight.Items(i).Remove()
+            End If
+        Next
+
         Loading(False)
     End Sub
 
@@ -205,16 +215,6 @@ Public Class MainForm
         ATWorker.RunWorkerAsync()
     End Sub
 
-    Private Sub NonZeroDetectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NonZeroDetectionToolStripMenuItem.Click
-        Clear()
-        LoadCSV(_fileName, 0)
-
-    End Sub
-
-    Private Sub AllToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles AllToolStripMenuItem1.Click
-        Clear()
-        LoadCSV(_fileName, 1)
-    End Sub
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Environment.Exit(0)
     End Sub
@@ -303,15 +303,19 @@ Public Class MainForm
 
     Private Sub Loading(Status As Boolean)
         Invoke(New MethodInvoker(Sub()
-                                     PictureBox.Enabled = Status
-                                     PictureBox.Visible = Status
+                                     PictureBoxLeft.Enabled = Status
+                                     PictureBoxLeft.Visible = Status
+                                     PictureBoxRight.Enabled = Status
+                                     PictureBoxRight.Visible = Status
                                  End Sub))
     End Sub
 
     Private Sub Clear()
         Invoke(New MethodInvoker(Sub()
-                                     LvCSV.Clear()
-                                     LvCSV.Columns.Clear()
+                                     LvLeft.Clear()
+                                     LvLeft.Columns.Clear()
+                                     LvRight.Clear()
+                                     LvRight.Columns.Clear()
                                      txtOutput.Clear()
                                  End Sub))
     End Sub

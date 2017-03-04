@@ -25,9 +25,14 @@ Partial Class MainForm
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PictureBox = New System.Windows.Forms.PictureBox()
-        Me.LvCSV = New AutorunsHelper.CustomListView()
+        Me.PanelMain = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.PanelRight = New System.Windows.Forms.Panel()
+        Me.PictureBoxRight = New System.Windows.Forms.PictureBox()
+        Me.LvRight = New AutorunsHelper.CustomListView()
+        Me.PanelLeft = New System.Windows.Forms.Panel()
+        Me.PictureBoxLeft = New System.Windows.Forms.PictureBox()
+        Me.LvLeft = New AutorunsHelper.CustomListView()
         Me.txtOutput = New System.Windows.Forms.TextBox()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
@@ -38,16 +43,17 @@ Partial Class MainForm
         Me.AllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UnsignedAppToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HistoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AllToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NonZeroDetectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StartupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ATWorker = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelMain.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.PanelRight.SuspendLayout()
+        CType(Me.PictureBoxRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelLeft.SuspendLayout()
+        CType(Me.PictureBoxLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -55,7 +61,7 @@ Partial Class MainForm
         '
         Me.TableLayoutPanel.ColumnCount = 1
         Me.TableLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel.Controls.Add(Me.Panel1, 0, 0)
+        Me.TableLayoutPanel.Controls.Add(Me.PanelMain, 0, 0)
         Me.TableLayoutPanel.Controls.Add(Me.txtOutput, 0, 1)
         Me.TableLayoutPanel.Controls.Add(Me.ProgressBar, 0, 2)
         Me.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -65,40 +71,96 @@ Partial Class MainForm
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18.0!))
-        Me.TableLayoutPanel.Size = New System.Drawing.Size(641, 570)
+        Me.TableLayoutPanel.Size = New System.Drawing.Size(827, 570)
         Me.TableLayoutPanel.TabIndex = 2
         '
-        'Panel1
+        'PanelMain
         '
-        Me.Panel1.Controls.Add(Me.PictureBox)
-        Me.Panel1.Controls.Add(Me.LvCSV)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(635, 436)
-        Me.Panel1.TabIndex = 4
+        Me.PanelMain.Controls.Add(Me.TableLayoutPanel1)
+        Me.PanelMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelMain.Location = New System.Drawing.Point(3, 3)
+        Me.PanelMain.Name = "PanelMain"
+        Me.PanelMain.Size = New System.Drawing.Size(821, 436)
+        Me.PanelMain.TabIndex = 4
         '
-        'PictureBox
+        'TableLayoutPanel1
         '
-        Me.PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
-        Me.PictureBox.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox.Name = "PictureBox"
-        Me.PictureBox.Size = New System.Drawing.Size(635, 436)
-        Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox.TabIndex = 3
-        Me.PictureBox.TabStop = False
-        Me.PictureBox.Visible = False
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.PanelRight, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PanelLeft, 0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(821, 436)
+        Me.TableLayoutPanel1.TabIndex = 4
         '
-        'LvCSV
+        'PanelRight
         '
-        Me.LvCSV.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LvCSV.Location = New System.Drawing.Point(0, 0)
-        Me.LvCSV.Name = "LvCSV"
-        Me.LvCSV.Size = New System.Drawing.Size(635, 436)
-        Me.LvCSV.TabIndex = 2
-        Me.LvCSV.UseCompatibleStateImageBehavior = False
+        Me.PanelRight.Controls.Add(Me.PictureBoxRight)
+        Me.PanelRight.Controls.Add(Me.LvRight)
+        Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelRight.Location = New System.Drawing.Point(413, 3)
+        Me.PanelRight.Name = "PanelRight"
+        Me.PanelRight.Size = New System.Drawing.Size(405, 430)
+        Me.PanelRight.TabIndex = 1
+        '
+        'PictureBoxRight
+        '
+        Me.PictureBoxRight.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.PictureBoxRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBoxRight.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
+        Me.PictureBoxRight.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBoxRight.Name = "PictureBoxRight"
+        Me.PictureBoxRight.Size = New System.Drawing.Size(405, 430)
+        Me.PictureBoxRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBoxRight.TabIndex = 5
+        Me.PictureBoxRight.TabStop = False
+        Me.PictureBoxRight.Visible = False
+        '
+        'LvRight
+        '
+        Me.LvRight.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LvRight.Location = New System.Drawing.Point(0, 0)
+        Me.LvRight.Name = "LvRight"
+        Me.LvRight.Size = New System.Drawing.Size(405, 430)
+        Me.LvRight.TabIndex = 4
+        Me.LvRight.UseCompatibleStateImageBehavior = False
+        '
+        'PanelLeft
+        '
+        Me.PanelLeft.Controls.Add(Me.PictureBoxLeft)
+        Me.PanelLeft.Controls.Add(Me.LvLeft)
+        Me.PanelLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelLeft.Location = New System.Drawing.Point(3, 3)
+        Me.PanelLeft.Name = "PanelLeft"
+        Me.PanelLeft.Size = New System.Drawing.Size(404, 430)
+        Me.PanelLeft.TabIndex = 0
+        '
+        'PictureBoxLeft
+        '
+        Me.PictureBoxLeft.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.PictureBoxLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBoxLeft.Image = Global.AutorunsHelper.My.Resources.Resources.Loading
+        Me.PictureBoxLeft.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBoxLeft.Name = "PictureBoxLeft"
+        Me.PictureBoxLeft.Size = New System.Drawing.Size(404, 430)
+        Me.PictureBoxLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBoxLeft.TabIndex = 5
+        Me.PictureBoxLeft.TabStop = False
+        Me.PictureBoxLeft.Visible = False
+        '
+        'LvLeft
+        '
+        Me.LvLeft.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LvLeft.Location = New System.Drawing.Point(0, 0)
+        Me.LvLeft.Name = "LvLeft"
+        Me.LvLeft.Size = New System.Drawing.Size(404, 430)
+        Me.LvLeft.TabIndex = 4
+        Me.LvLeft.UseCompatibleStateImageBehavior = False
         '
         'txtOutput
         '
@@ -107,7 +169,7 @@ Partial Class MainForm
         Me.txtOutput.Multiline = True
         Me.txtOutput.Name = "txtOutput"
         Me.txtOutput.ReadOnly = True
-        Me.txtOutput.Size = New System.Drawing.Size(635, 104)
+        Me.txtOutput.Size = New System.Drawing.Size(821, 104)
         Me.txtOutput.TabIndex = 1
         '
         'ProgressBar
@@ -115,16 +177,16 @@ Partial Class MainForm
         Me.ProgressBar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ProgressBar.Location = New System.Drawing.Point(3, 555)
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(635, 12)
+        Me.ProgressBar.Size = New System.Drawing.Size(821, 12)
         Me.ProgressBar.TabIndex = 2
         '
         'MenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.ScanToolStripMenuItem, Me.HistoryToolStripMenuItem, Me.ViewToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.ScanToolStripMenuItem, Me.HistoryToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
-        Me.MenuStrip.Size = New System.Drawing.Size(641, 24)
+        Me.MenuStrip.Size = New System.Drawing.Size(827, 24)
         Me.MenuStrip.TabIndex = 3
         Me.MenuStrip.Text = "MenuStrip1"
         '
@@ -172,25 +234,6 @@ Partial Class MainForm
         Me.HistoryToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
         Me.HistoryToolStripMenuItem.Text = "History"
         '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AllToolStripMenuItem1, Me.NonZeroDetectionToolStripMenuItem})
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(80, 20)
-        Me.ViewToolStripMenuItem.Text = "View Mode"
-        '
-        'AllToolStripMenuItem1
-        '
-        Me.AllToolStripMenuItem1.Name = "AllToolStripMenuItem1"
-        Me.AllToolStripMenuItem1.Size = New System.Drawing.Size(183, 22)
-        Me.AllToolStripMenuItem1.Text = "All"
-        '
-        'NonZeroDetectionToolStripMenuItem
-        '
-        Me.NonZeroDetectionToolStripMenuItem.Name = "NonZeroDetectionToolStripMenuItem"
-        Me.NonZeroDetectionToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
-        Me.NonZeroDetectionToolStripMenuItem.Text = "Non-Zero-Detection"
-        '
         'OptionToolStripMenuItem
         '
         Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartupToolStripMenuItem})
@@ -218,7 +261,7 @@ Partial Class MainForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(641, 594)
+        Me.ClientSize = New System.Drawing.Size(827, 594)
         Me.Controls.Add(Me.TableLayoutPanel)
         Me.Controls.Add(Me.MenuStrip)
         Me.DoubleBuffered = True
@@ -228,8 +271,12 @@ Partial Class MainForm
         Me.Text = "Autoruns Helper"
         Me.TableLayoutPanel.ResumeLayout(False)
         Me.TableLayoutPanel.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelMain.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.PanelRight.ResumeLayout(False)
+        CType(Me.PictureBoxRight, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelLeft.ResumeLayout(False)
+        CType(Me.PictureBoxLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip.ResumeLayout(False)
         Me.MenuStrip.PerformLayout()
         Me.ResumeLayout(False)
@@ -249,13 +296,15 @@ Partial Class MainForm
     Friend WithEvents HistoryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ATWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents ProgressBar As ProgressBar
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NonZeroDetectionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PanelMain As Panel
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AllToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents LvCSV As CustomListView
-    Friend WithEvents PictureBox As PictureBox
     Friend WithEvents OptionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StartupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents PanelRight As Panel
+    Friend WithEvents PictureBoxRight As PictureBox
+    Friend WithEvents LvRight As CustomListView
+    Friend WithEvents PanelLeft As Panel
+    Friend WithEvents PictureBoxLeft As PictureBox
+    Friend WithEvents LvLeft As CustomListView
 End Class
